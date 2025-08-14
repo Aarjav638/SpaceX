@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/images/app-logo.png" alt="App Logo" width="180" />
+</p>
+
 # 🚀 SpaceX Launchpad Explorer
 
 A beautifully designed React Native app built with **Expo** and **Expo Router**, allowing users to explore and navigate to SpaceX launchpads. The app displays launchpad details, shows your location on the map, and opens navigation directions in Google or Apple Maps.
