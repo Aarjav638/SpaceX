@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/images/app-logo.png" alt="App Logo" width="180" />
+</p>
+
 # 🚀 SpaceX Launchpad Explorer
 
 A beautifully designed React Native app built with **Expo** and **Expo Router**, allowing users to explore and navigate to SpaceX launchpads. The app displays launchpad details, shows your location on the map, and opens navigation directions in Google or Apple Maps.
@@ -111,11 +115,36 @@ npm run start
 
 ## 📸 Screenshots
 
-> You can replace these with real screenshots from your app.
+> Android
 
-| Launchpad Map View            | Permission Modal                            | Directions                                  |
-| ----------------------------- | ------------------------------------------- | ------------------------------------------- |
-| ![Map](./screenshots/map.png) | ![Permission](./screenshots/permission.png) | ![Directions](./screenshots/directions.png) |
+| Light Mode                                                   | Dark Mode                                                   |
+| ------------------------------------------------------------ | ----------------------------------------------------------- |
+| ![Splash](./screenshots/Android/Light/0.jpeg)                | ![Splash](./screenshots/Android/Dark/0.jpeg)                |
+| ![List](./screenshots/Android/Light/1.jpeg)                  | ![List](./screenshots/Android/Dark/1.jpeg)                  |
+| ![Search](./screenshots/Android/Light/2.jpeg)                | ![Search](./screenshots/Android/Dark/2.jpeg)                |
+| ![Search No Result](./screenshots/Android/Light/3.jpeg)      | ![Search No Result](./screenshots/Android/Dark/3.jpeg)      |
+| ![Details](./screenshots/Android/Light/4.jpeg)               | ![Details](./screenshots/Android/Dark/4.jpeg)               |
+| ![QuickAction](./screenshots/Android/Light/5.jpeg)           | ![QuickAction](./screenshots/Android/Dark/5.jpeg)           |
+| ![Userloaction](./screenshots/Android/Light/6.jpeg)          | ![Permission](./screenshots/Android/Dark/6.jpeg)            |
+| ![NativeMaps](./screenshots/Android/Light/7.jpeg)            | ![NativeMaps](./screenshots/Android/Dark/7.jpeg)            |
+| ![Directions](./screenshots/Android/Light/8.jpeg)            | ![Directions](./screenshots/Android/Dark/8.jpeg)            |
+| ![Shimmer](./screenshots/Android/Light/9.jpeg)               | ![PermissionDenial](./screenshots/Android/Dark/9.jpeg)      |
+| ![Native Maps Location](./screenshots/Android/Light/10.jpeg) | ![Native Maps Location](./screenshots/Android/Dark/10.jpeg) |
+| ![Exit Modal](./screenshots/Android/Light/11.jpeg)           | ![Exit Modal](./screenshots/Android/Dark/11.jpeg)           |
+
+> IOS
+
+| Light Mode                                          | Dark Mode                                          |
+| --------------------------------------------------- | -------------------------------------------------- |
+| ![Splash](./screenshots/IOS/Light/0.jpeg)           | ![Splash](./screenshots/IOS/Dark/0.jpeg)           |
+| ![List](./screenshots/IOS/Light/1.jpeg)             | ![List](./screenshots/IOS/Dark/1.jpeg)             |
+| ![Search](./screenshots/IOS/Light/2.jpeg)           | ![Search](./screenshots/IOS/Dark/2.jpeg)           |
+| ![Search No Result](./screenshots/IOS/Light/3.jpeg) | ![Search No Result](./screenshots/IOS/Dark/3.jpeg) |
+| ![Details](./screenshots/IOS/Light/4.jpeg)          | ![Details](./screenshots/IOS/Dark/4.jpeg)          |
+| ![PermissionDenial](./screenshots/IOS/Light/5.jpeg) | ![PermissionDenial](./screenshots/IOS/Dark/5.jpeg) |
+| ![Permission](./screenshots/IOS/Light/6.jpeg)       | ![QuickAction](./screenshots/IOS/Dark/7.jpeg)      |
+| ![QuickAction](./screenshots/IOS/Light/8.jpeg)      | ![NativeMaps](./screenshots/IOS/Dark/6.jpeg)       |
+| ![Directions](./screenshots/IOS/Light/7.jpeg)       |
 
 ---
 
