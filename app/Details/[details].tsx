@@ -26,7 +26,7 @@ import {
   Vibration,
   View,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Details = () => {
@@ -218,6 +218,7 @@ const Details = () => {
               latitudeDelta: 0.01,
               longitudeDelta: 0.01,
             }}
+            provider={PROVIDER_GOOGLE}
           >
             <Marker
               coordinate={{

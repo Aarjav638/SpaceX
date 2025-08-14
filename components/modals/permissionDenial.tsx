@@ -44,7 +44,6 @@ const PermissionDenial = ({
           <View
             style={{
               width: SCREEN_WIDTH * 0.85,
-              height: 'auto',
               alignItems: 'center',
               justifyContent: 'space-evenly',
               borderRadius: 20,
@@ -72,6 +71,7 @@ const PermissionDenial = ({
                 color: '#000',
                 textAlign: 'center',
                 fontSize: 25,
+                lineHeight: 28,
               }}
             >
               Location Permission{'\n\n'}

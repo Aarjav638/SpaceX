@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import React, { memo, useEffect, useRef, useState } from 'react';
 import {
   Animated,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -135,7 +136,12 @@ const RenderItem = memo(
         locations={[0, 0.5, 1]}
       >
         <Pressable
-          style={{ flex: 1, justifyContent: 'space-evenly', gap: 10 }}
+          style={{
+            flex: 1,
+            justifyContent: 'space-evenly',
+            gap: 10,
+            overflow: 'visible',
+          }}
           onPress={() => {
             Vibration.vibrate([0, 100, 200]);
             const details = { id: item.launchpad, detail: item.details };
@@ -284,10 +290,11 @@ const styles = StyleSheet.create({
     padding: 5,
     elevation: 5,
     paddingBottom: 20,
+    overflow: 'visible',
   },
   imageWrapper: {
     width: '100%',
-    padding: 20,
+    padding: Platform.OS === 'ios' ? 35 : 20,
     height: '75%',
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -303,7 +310,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     right: 5,
-    top: -15,
+    top: Platform.OS === 'ios' ? 0 : -15,
     paddingHorizontal: 15,
     height: 30,
   },
