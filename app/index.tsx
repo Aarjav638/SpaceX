@@ -1,11 +1,13 @@
 import RenderItem from '@/components/home/FlatlistRenderItem';
 import HomeShimmer from '@/components/home/HomeShimmer';
+import Exit from '@/components/modals/Exit';
 import { ShimmerPlaceholder } from '@/components/ShimmerPlaceHolder';
 import { ThemedText } from '@/components/ThemedText';
 import useDebounce from '@/hooks/useDebounce';
 import { getLaunpads } from '@/lib';
 import { Launch, LaunchesResponse } from '@/types/launcehs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect } from 'expo-router';
 import React, {
@@ -18,9 +20,11 @@ import React, {
 import {
   BackHandler,
   FlatList,
+  Platform,
   RefreshControl,
   StyleSheet,
   TextInput,
+  ToastAndroid,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -31,6 +35,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const [exitAttempt, setExitAttempt] = useState(false);
   const pageRef = useRef(1);
   const loadingRef = useRef(false);
 
@@ -64,7 +69,14 @@ const Home = () => {
         };
       });
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        ToastAndroid.show(error.message, ToastAndroid.SHORT);
+      } else {
+        ToastAndroid.show(
+          'Error Getting Details of launches',
+          ToastAndroid.SHORT
+        );
+      }
     } finally {
       loadingRef.current = false;
       setFooterLoading(false);
@@ -80,7 +92,14 @@ const Home = () => {
         const data = await getLaunpads(1);
         setLaunchData(data);
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          ToastAndroid.show(error.message, ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show(
+            'Error Getting Details of launches',
+            ToastAndroid.SHORT
+          );
+        }
       } finally {
         setRefreshing(false);
       }
@@ -136,10 +155,29 @@ const Home = () => {
     ),
     []
   );
+
+  const handleExit = () => {
+    if (Platform.OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    } else if (Platform.OS === 'android') {
+      // Use performAndroidHapticsAsync for better vibration on Android
+      Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Long_Press);
+    }
+    BackHandler.exitApp();
+  };
   useEffect(() => {
     getLaunpads()
       .then((data) => setLaunchData(data))
-      .catch((err) => console.error(err.message))
+      .catch((error) => {
+        if (error instanceof Error) {
+          ToastAndroid.show(error.message, ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show(
+            'Error Getting Details of launches',
+            ToastAndroid.SHORT
+          );
+        }
+      })
       .finally(() => {
         setloading(false);
       });
@@ -151,7 +189,8 @@ const Home = () => {
           setSearchQuery('');
           return true;
         }
-        return false;
+        setExitAttempt(true);
+        return true;
       });
       return () => {
         listner.remove();
@@ -173,6 +212,23 @@ const Home = () => {
     >
       <SafeAreaView style={styles.container}>
         {(loading || refreshing) && pageRef.current === 1 && <HomeShimmer />}
+        {exitAttempt && (
+          <Exit
+            onRequestClose={() => {
+              if (Platform.OS === 'ios') {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              } else if (Platform.OS === 'android') {
+                // Use performAndroidHapticsAsync for better vibration on Android
+                Haptics.performAndroidHapticsAsync(
+                  Haptics.AndroidHaptics.Long_Press
+                );
+              }
+              setExitAttempt(false);
+            }}
+            visible={exitAttempt}
+            handleExit={handleExit}
+          />
+        )}
         {/* Search Bar */}
         <View
           style={{
@@ -195,6 +251,16 @@ const Home = () => {
             placeholder="Search Misson..."
             cursorColor={'black'}
             placeholderTextColor={'#7a7878ff'}
+            onPress={() => {
+              if (Platform.OS === 'ios') {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              } else if (Platform.OS === 'android') {
+                // Use performAndroidHapticsAsync for better vibration on Android
+                Haptics.performAndroidHapticsAsync(
+                  Haptics.AndroidHaptics.Long_Press
+                );
+              }
+            }}
           />
           <Ionicons name="search" size={20} color={'#7a7878ff'} />
         </View>
@@ -213,8 +279,8 @@ const Home = () => {
             flexGrow: displayData.length > 0 ? undefined : 1,
           }}
           getItemLayout={(_, index) => ({
-            length: 350,
-            offset: 350 * index,
+            length: 360,
+            offset: 360 * index,
             index,
           })}
           onEndReached={handleLoadMore}

@@ -39,61 +39,17 @@ const Exit = ({
             />
           </TouchableWithoutFeedback>
 
-          <View
-            style={{
-              width: '85%',
-              justifyContent: 'space-evenly',
-              backgroundColor: 'white',
-              paddingVertical: '8%',
-              paddingHorizontal: '5%',
-              gap: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: '#000000',
-                fontFamily: 'SpaceMonoBold',
-                fontSize: 18,
-                textAlign: 'center',
-              }}
-            >
-              DO YOU REALY WANT TO EXIT?
-            </Text>
-            <Text
-              style={{
-                color: '#FF0066',
-                fontSize: 18,
-                textAlign: 'center',
-                fontFamily: 'SpaceMonoBold',
-                fontWeight: 'semibold',
-              }}
-            >
+          <View style={styles.modalContainer}>
+            <Text style={styles.title}>DO YOU REALY WANT TO EXIT?</Text>
+            <Text style={styles.message}>
               {message
                 ? message
-                : 'You are on last step,\nFinish your store setup'}
+                : 'You are step away,\nLearn about spaceX lauches'}
             </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: 12,
-                paddingHorizontal: 4,
-              }}
-            >
+            <View style={styles.buttonWapper}>
               <Text
                 onPress={handleExit}
-                style={{
-                  fontFamily: 'SpaceMonoBold',
-                  fontWeight: 'semibold',
-                  color: '#FF0066',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  padding: 8,
-                  flex: 1,
-                  textAlign: 'center',
-                  borderColor: '#FF0066',
-                  fontSize: 17,
-                }}
+                style={styles.exitText}
                 numberOfLines={1}
               >
                 Exit
@@ -102,19 +58,7 @@ const Exit = ({
                 numberOfLines={1}
                 onPress={onRequestClose}
                 className="text-right"
-                style={{
-                  fontFamily: 'SpaceMonoBold',
-                  fontWeight: 'semibold',
-                  color: '#fff',
-                  fontSize: 17,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  padding: 8,
-                  flex: 1,
-                  textAlign: 'center',
-                  borderColor: '#0088EB',
-                  backgroundColor: '#0088EB',
-                }}
+                style={styles.continueText}
               >
                 Continue
               </Text>
@@ -127,3 +71,59 @@ const Exit = ({
 };
 
 export default Exit;
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    width: '90%',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'white',
+    paddingVertical: '8%',
+    paddingHorizontal: '5%',
+    gap: 20,
+    borderRadius: 10,
+  },
+  title: {
+    color: '#000000',
+    fontFamily: 'SpaceMonoBold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  message: {
+    color: '#FF0066',
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: 'SpaceMonoBold',
+    fontWeight: 'semibold',
+  },
+  buttonWapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+    paddingHorizontal: 4,
+  },
+  exitText: {
+    fontFamily: 'SpaceMonoBold',
+    fontWeight: 'semibold',
+    color: '#FF0066',
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 8,
+    flex: 1,
+    textAlign: 'center',
+    borderColor: '#FF0066',
+    fontSize: 17,
+  },
+  continueText: {
+    fontFamily: 'SpaceMonoBold',
+    fontWeight: 'semibold',
+    color: '#fff',
+    fontSize: 17,
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 8,
+    flex: 1,
+    textAlign: 'center',
+    borderColor: '#0088EB',
+    backgroundColor: '#0088EB',
+  },
+});
