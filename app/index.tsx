@@ -238,8 +238,9 @@ const Home = () => {
             borderRadius: 5,
             borderWidth: 1,
             alignItems: 'center',
-            paddingRight: 10,
+            paddingHorizontal: 10,
             // margin: 10,
+            minHeight: '5.5%',
             backgroundColor: '#fff',
             borderColor: 'rgba(221, 221, 221, 1)',
           }}

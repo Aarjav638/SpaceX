@@ -1,54 +1,176 @@
-# SpaceX
+# 🚀 SpaceX Launchpad Explorer
 
-SpaceX Laucher Info App
+A beautifully designed React Native app built with **Expo** and **Expo Router**, allowing users to explore and navigate to SpaceX launchpads. The app displays launchpad details, shows your location on the map, and opens navigation directions in Google or Apple Maps.
 
-# Welcome to your Expo app 👋
+---
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 🧱 Stack
 
-## Get started
+- **Framework**: Expo SDK 53 + Expo Router
+- **Language**: TypeScript
+- **Navigation**: Expo Router(File Based Routing)
+- **Maps**: `react-native-maps`
+- **Permissions**: `expo-location`
+- **State + Effects**: React Hooks, Custom Hooks
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+### ✅ Requirements
 
-2. Start the app
+- Node.js 16+
+- Expo CLI (`npm install -g expo-cli`)
+- Android Studio or Xcode for simulators (optional)
+- Google Map Api Key For Both Platforms(Android And IOS)
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🔐 Environment Variables
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+This project uses environment variables to store sensitive data like API keys.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 1. Add API KEYS in `.env` file in the root:
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+GOOGLE_MAPS_API_KEY = YOUR_API_KEY_HERE
+GOOGLE_MAPS_API_KEY_IOS = YOUR_API_KEY_HERE
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+✅ **Note**: You’ve correctly setup the `.env` file .
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## ⚙️ Getting Started
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+# Clone the repo
+git clone https://github.com/Aarjav638/SpaceX.git
+cd SpaceX
 
-## Join the community
+# Install dependencies
+npm install
 
-Join our community of developers creating universal apps.
+# Create Native Directories
+npm run prebuild
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Run the app on android
+npm run android
+# Run the app on ios
+npm run ios
+#Run app through expo
+npm run start
+
+```
+
+## 📍 Map Implementation
+
+### Libraries Used
+
+| Package                          | Purpose                                 |
+| -------------------------------- | --------------------------------------- |
+| `react-native-maps`              | Renders maps and markers                |
+| `expo-location`                  | Requests location permission and access |
+| `expo-linking`                   | Opens system settings or map apps       |
+| `expo-linear-gradient`           | UI gradients                            |
+| `expo-haptics`                   | Vibration feedback                      |
+| `expo-router`                    | File-based routing                      |
+| `react-native-safe-area-context` | Safe layout on all devices              |
+
+### Features
+
+- Renders a map centered on a launchpad.
+- Shows a marker with the launchpad's location.
+- Tracks and shows the user's current location.
+- Opens Apple Maps (iOS) or Google Maps (Android) for driving directions.
+
+---
+
+## 🛡️ Permission Handling
+
+### Flow For Details Screen
+
+1. On screen focus, the app checks for location permission.
+2. If not granted:
+   - Prompts user via permission request modal.
+   - After 2 failed attempts, directs user to system settings.
+
+3. If granted:
+   - Fetches current location.
+   - Displays user marker on the map.
+   - Show Navigation Button
+
+### Custom Handling
+
+- `usePersistedAttemptCount`: Tracks permission attempts to limit repeated prompts.
+- `useLocationPermissionRefresh`: Listens to permission changes in the background.
+- `useDebounce` : Debouncing the search query so minimum rerenders
+- `useThemeConfig` : Listen For Theme Change
+- `useThemeColor`: Returns the Color based on theme for Various Components
+- Modal (`PermissionDenial`) and `ToastAndroid` give real-time feedback to users.
+
+---
+
+## 📸 Screenshots
+
+> You can replace these with real screenshots from your app.
+
+| Launchpad Map View            | Permission Modal                            | Directions                                  |
+| ----------------------------- | ------------------------------------------- | ------------------------------------------- |
+| ![Map](./screenshots/map.png) | ![Permission](./screenshots/permission.png) | ![Directions](./screenshots/directions.png) |
+
+---
+
+## 🧾 Scripts
+
+| Script            | Description                      |
+| ----------------- | -------------------------------- |
+| `npm start`       | Starts the development server    |
+| `npm run android` | Runs the app on Android emulator |
+| `npm run ios`     | Runs the app on iOS simulator    |
+| `npm run web`     | Runs the app on web browser      |
+| `npm run lint`    | Fixes lint issues using ESLint   |
+
+---
+
+## 📁 Project Structure
+
+```
+spacex/
+├── components/
+│   ├── details/
+│   ├── modals/
+│   └── ui/
+│   └── home/
+├── hooks/
+│   ├── useLocationPermissionRefresh.ts
+│   └── usePermissionAttempt.ts
+│   └── useTheme.ts
+│   └── useDebounce.ts
+│   └── useThemeColor.ts
+├── lib/
+│   └── utils.ts
+│   └── index.ts
+│   └── env.js
+├── app/
+│   └── Details/[details].tsx         <-- Map and details screen
+│   └── _layout.tsx
+│   └── index.tsx
+│   └── +not-found.tsx
+├── assets/
+│   └── images/
+│   └── fonts/
+├── .env                    <-- API Key (not committed)
+├── .gitignore
+├── app.config.ts
+├── .prettier.js
+├── eslint.config.ts
+├── metro.config.js
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+## 🛡️ License
+
+This project is open-source.
+
+---
