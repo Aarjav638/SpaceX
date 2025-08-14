@@ -115,7 +115,7 @@ npm run start
 
 ## 📸 Screenshots
 
-> Android
+> # Android
 
 | Light Mode                                                   | Dark Mode                                                   |
 | ------------------------------------------------------------ | ----------------------------------------------------------- |
@@ -132,7 +132,7 @@ npm run start
 | ![Native Maps Location](./screenshots/Android/Light/10.jpeg) | ![Native Maps Location](./screenshots/Android/Dark/10.jpeg) |
 | ![Exit Modal](./screenshots/Android/Light/11.jpeg)           | ![Exit Modal](./screenshots/Android/Dark/11.jpeg)           |
 
-> IOS
+> # IOS
 
 | Light Mode                                          | Dark Mode                                          |
 | --------------------------------------------------- | -------------------------------------------------- |
