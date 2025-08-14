@@ -11,8 +11,6 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     SpaceMonoBold: require('../assets/fonts/SpaceMono-Bold.ttf'),
-    SpaceMonoBoldItalic: require('../assets/fonts/SpaceMono-BoldItalic.ttf'),
-    SpaceMonoItalic: require('../assets/fonts/SpaceMono-Italic.ttf'),
   });
 
   if (!loaded) {

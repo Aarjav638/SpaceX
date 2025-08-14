@@ -6,7 +6,14 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Animated,
+  Pressable,
+  StyleSheet,
+  Text,
+  Vibration,
+  View,
+} from 'react-native';
 import { ThemedText } from '../ThemedText';
 interface RenderItemProps {
   item: Launch; // replace with your item type
@@ -130,6 +137,7 @@ const RenderItem = memo(
         <Pressable
           style={{ flex: 1, justifyContent: 'space-evenly', gap: 10 }}
           onPress={() => {
+            Vibration.vibrate([0, 100, 200]);
             const details = { id: item.launchpad, detail: item.details };
             const data = JSON.stringify(details);
             router.push(`/Details/${data}`);
@@ -146,7 +154,7 @@ const RenderItem = memo(
                 width: '100%',
                 height: '100%',
               }}
-              contentFit="fill"
+              contentFit="contain"
               placeholder={
                 'https://dummyimage.com/600x400/f5f5f5/dbdbdb.jpg&text=loading...'
               }
@@ -206,7 +214,13 @@ const RenderItem = memo(
               {item.success ? 'Sucessfull' : 'Failed'}
             </Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-evenly',
+              paddingHorizontal: 10,
+            }}
+          >
             <DetailsText title="Name" value={item.name} />
             {/* <DetailsText title="Details" value={item.details || ''} /> */}
             <DetailsText title="Date" value={date} />
