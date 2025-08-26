@@ -280,8 +280,8 @@ const Home = () => {
             flexGrow: displayData.length > 0 ? undefined : 1,
           }}
           getItemLayout={(_, index) => ({
-            length: 360,
-            offset: 360 * index,
+            length: 400,
+            offset: 400 * index,
             index,
           })}
           onEndReached={handleLoadMore}

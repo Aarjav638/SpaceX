@@ -1,11 +1,12 @@
 import { colors } from '@/components/ui/colors';
+import { formatElapsedTime } from '@/lib';
 import { Launch } from '@/types/launcehs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Platform,
@@ -38,6 +39,49 @@ const RenderItem = memo(
     const rotation = useRef(new Animated.Value(0)).current;
     const [layoutWidth, setLayoutWidth] = useState(100);
     const crashPos = useRef(new Animated.ValueXY({ x: 35, y: -20 })).current;
+    const [elapsedTime, setElapsedTime] = useState('0d 0h 0m 0s');
+
+    //one Way Using Debounce function and checking every 5 second that 1 minute is passed or not then updating
+
+    // const updateElapsedTime = useDebouncedCallback(() => {
+    //   const now = new Date().getTime();
+    //   const launchTime = new Date(item.date_utc).getTime();
+    //   const elapsed = now - launchTime;
+    //   const formatted = formatElapsedTime(elapsed);
+    //   setElapsedTime(formatted);
+    // }, 60000);
+
+    // useEffect(() => {
+    //   updateElapsedTime();
+    //   const interval = setInterval(updateElapsedTime, 5000);
+    //   return () => clearInterval(interval);
+    // }, [item.date_utc, updateElapsedTime]);
+
+    // Second Alternative Way
+
+    const intervalRef = useRef<number | null>(null);
+
+    const updateElapsedTime = useCallback(() => {
+      const now = new Date().getTime();
+      const launchTime = new Date(item.date_utc).getTime();
+      const elapsed = now - launchTime;
+      const formatted = formatElapsedTime(elapsed);
+      setElapsedTime(formatted);
+    }, [item.date_utc]);
+
+    useEffect(() => {
+      // Initial calculation
+      updateElapsedTime();
+
+      // Update every 60 seconds
+      intervalRef.current = setInterval(updateElapsedTime, 60000);
+
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+      };
+    }, [updateElapsedTime]);
 
     useEffect(() => {
       const createRectanglePattern = () => {
@@ -230,6 +274,7 @@ const RenderItem = memo(
             <DetailsText title="Name" value={item.name} />
             {/* <DetailsText title="Details" value={item.details || ''} /> */}
             <DetailsText title="Date" value={date} />
+            <DetailsText title="Elapsed Time" value={elapsedTime} />
             <View
               style={{
                 flexDirection: 'row',
@@ -285,7 +330,7 @@ const DetailsText = ({ value, title }: { title: string; value: string }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
-    height: 360,
+    height: 400,
     borderRadius: 10,
     padding: 5,
     elevation: 5,
